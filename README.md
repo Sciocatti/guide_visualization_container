@@ -9,8 +9,8 @@ As a stretch goal we are also going to attempt to run a Python OpenCV image and 
 This is going to be building up to that step-by-step as I figure out how to do it.
 
 **Steps:**
-1. [Setting Up xhost And $DISPLAY](#)
-2. [Installing Docker on the target node](#)
+1. [Setting Up xhost And $DISPLAY](#1-setting-up-xhost-and-display)
+2. [Installing Docker on the target node](#2-installing-docker-on-target-node)
 3. [Building the Docker Image content](#)
 4. [Building the Dockerfile](#)
 5. [Running the Docker image](#)
@@ -34,3 +34,9 @@ $ xhost +
 $ firefox
 ```
 After following these steps you should have a window open on the PC you are connected to. If not, something went wrong and you will have to google.
+
+## 2. Installing Docker on the target node
+
+Follow the official guide for your target node OS. For testing and development we are going to be doing that directly on the target node so that we are sure every step along the way works, and we can just build on that going forward.
+
+You can find the Ubuntu guide [here](https://docs.docker.com/engine/install/ubuntu/)
