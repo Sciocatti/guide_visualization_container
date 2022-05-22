@@ -10,7 +10,7 @@ This is going to be building up to that step-by-step as I figure out how to do i
 
 ## Why would we want to do this?
 
-VLC actually as a telnet interface. We could have VLC playing on the host, and open the remote connection from within the container and control the player that way. So why not?
+VLC actually has a telnet interface. We could have VLC playing on the host, and open the remote connection from within the container and control the player that way. So why not?
 
 The problem is that VLC is on the target node itself then, and we lose most of our control. If VLC crashes we cannot do anything about it, and down the line if we want to replace VLC with a different program to drive the screen then we would need to go to every node running this, deactivate VLC, install the new program and figure out the interface to it.
 
@@ -20,7 +20,7 @@ With scale and the distribution Kubernetes provides we really want to keep as mu
 
 1. [Setting Up xhost And $DISPLAY](#1-setting-up-xhost-and-display)
 2. [Installing Docker on the target node](#2-installing-docker-on-the-target-node)
-3. [Building the base Dockerfile](#30building-the-base-dockerfile)
+3. [Building the base Dockerfile](#3-building-the-base-dockerfile)
 5. [Running the Docker image](#)
 6. [Installing K3S](#)
 7. [Building the deployment](#)
@@ -45,14 +45,14 @@ $ firefox
 After following these steps you should have a window open on the PC you are connected to. If not, something went wrong and you will have to google.
 
 ## 2. Installing Docker on the target node
-> NOTE: This README was updated last at 2022/05/21
+> NOTE: This section was updated last at 2022/05/21
 
 Follow the official guide for your target node OS. For testing and development we are going to be doing that directly on the target node so that we are sure every step along the way works, and we can just build on that going forward.
 
 You can find the Ubuntu guide [here](https://docs.docker.com/engine/install/ubuntu/)
 
 ## 3. Building the base Dockerfile
-> NOTE: This README was updated last at 2022/05/22
+> NOTE: This section was updated last at 2022/05/22
 
 For a start we are going to be making a dockerfile from the official Ubuntu 20.04 image from dockerhub, install VLC and then simply launch VLC. You can see this in [Dockerfile.base](/Dockerfile.base), but here is a breakdown:
 ```docker
