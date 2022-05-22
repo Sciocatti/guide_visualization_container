@@ -55,6 +55,7 @@ You can find the Ubuntu guide [here](https://docs.docker.com/engine/install/ubun
 > NOTE: This section was updated last at 2022/05/22
 
 For a start we are going to be making a dockerfile from the official Ubuntu 20.04 image from dockerhub, install VLC and then simply launch VLC. You can see this in [Dockerfile.base](/Dockerfile.base), but here is a breakdown:
+
 ```docker
 # From the base ubuntu 20.04 image
 FROM ubuntu:20.04
@@ -84,7 +85,7 @@ CMD [ "vlc", "--fullscreen", "--repeat", "--video-on-top", "--no-video-title-sho
 
 We can build this dockerfile on the target node with
 ```bash
-$ scp user@internal_ip:~/Desktop
+$ scp Dockerfile.base user@internal_ip:~/Desktop
 $ ssh user@internal_ip
 $ cd ~/Desktop
 $ docker build -f Dockerfile.base -t visualization_container:0.0.1 .
@@ -106,3 +107,6 @@ $ docker run \
              visualization_container:0.0.1
 ```
 and __voila!__, we see a video playing on the target PC. The dockerfile explains itself with some comments, but most of the magic is in the way we start VLC.
+
+> NOTE: For a guide to adding sound, check out [this repository](https://github.com/TheBiggerGuy/docker-pulseaudio-example/blob/master/Dockerfile)
+
