@@ -1,0 +1,24 @@
+# From the base ubuntu 20.04 image
+FROM ubuntu:20.04
+# Update the store and install VLC.
+#   `-y` is important as VLC is large, so it will ask if you want to continue
+#   `--no-install-recommends` blocks the installation of stuff we don't want to keep the image somewhat smaller.
+RUN apt-get update && apt-get -y --no-install-recommends install vlc
+# Create a new user, called `vlcuser`, to start VLC. VLC does not start as root so we need a proxy.
+RUN useradd -ms /bin/bash vlcuser
+# Switch from `root` to our new user
+USER vlcuser
+# Operate from this new user's directory
+WORKDIR /home/vlcuser
+# Run the VLC program. The options below are stuff VLC allows us to set when starting the program from the terminal
+#   `--fullscreen`          -> Maximize the window
+#   `--repeat`              -> Keep on playing the videos in the playlist. Otherwise it will stop playing.
+#   `--video-on-top`        -> Display this window above anything else. This is important as we want our
+#                              display to bewhat the end user sees.
+#   `--no-video-title-show` -> Disable showing the title of the video when it starts playing.
+#   `--no-audio`            -> Disable audio. We are not mounting any audio output in, so it will log issues without this.
+#   `--no-qt-privacy-ask`   -> When launching VLC for the first time, it has a privacy protection pop-up. As "the first time"
+#                              will be every time this container is created, we want to disable that.
+#   /home/vlcuser/Videos    -> Add any videos inside this folder to the playlist. We are mounting this from the host so that
+#                              some other container could change the videos and VLC will keep on doing its thing.
+CMD [ "vlc", "--fullscreen", "--repeat", "--video-on-top", "--no-video-title-show", "--no-audio", "--no-qt-privacy-ask", "/home/vlcuser/Videos" ]
